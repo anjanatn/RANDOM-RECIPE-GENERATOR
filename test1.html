@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Generator</title>
+</head>
+<body>
+    <h1>Welcome to the Recipe Generator</h1>
+    <form method="POST">
+        <label for="ingredients">Enter Ingredients (comma-separated):</label><br>
+        <input type="text" id="ingredients" name="ingredients" required><br><br>
+        
+        <label for="cuisine">Select a Cuisine:</label><br>
+        <input type="text" id="cuisine" name="cuisine"><br><br>
+        
+        <label for="max_time">Max Cooking Time (in minutes):</label><br>
+        <input type="number" id="max_time" name="max_time"><br><br>
+        
+        <button type="submit">Generate Recipe</button>
+    </form>
+
+    {% if recipes %}
+        <h2>Generated Recipes:</h2>
+        <ul>
+            {% for recipe in recipes %}
+                <li>
+                    <strong>{{ recipe.title }}</strong><br>
+                    <a href="https://spoonacular.com/recipes/{{ recipe.title | replace(' ', '-') }}-{{ recipe.id }}">View Recipe</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif recipes is not none %}
+        <p>No recipes found for the given input.</p>
+    {% endif %}
+</body>
+</html>
